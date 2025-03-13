@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thinking, Fast and Slow</title>
+    <style>
+        /* Resetting Default Styles */
+        html,
+        body,
+        div,
+        span,
+        applet,
+        object,
+        iframe,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        blockquote,
+        pre,
+        a,
+        abbr,
+        acronym,
+        address,
+        big,
+        cite,
+        code,
+        del,
+        dfn,
+        em,
+        img,
+        ins,
+        kbd,
+        q,
+        s,
+        samp,
+        small,
+        strike,
+        strong,
+        sub,
+        sup,
+        tt,
+        var,
+        b,
+        u,
+        i,
+        center,
+        dl,
+        dt,
+        dd,
+        ol,
+        ul,
+        li,
+        fieldset,
+        form,
+        label,
+        legend,
+        table,
+        caption,
+        tbody,
+        tfoot,
+        thead,
+        tr,
+        th,
+        td,
+        article,
+        aside,
+        canvas,
+        details,
+        embed,
+        figure,
+        figcaption,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        output,
+        ruby,
+        section,
+        summary,
+        time,
+        mark,
+        audio,
+        video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        /* HTML5 display-role reset for older browsers */
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        section {
+            display: block;
+        }
+
+        body {
+            line-height: 1;
+        }
+
+        ol,
+        ul {
+            list-style: none;
+        }
+
+        blockquote,
+        q {
+            quotes: none;
+        }
+
+        blockquote:before,
+        blockquote:after,
+        q:before,
+        q:after {
+            content: '';
+            content: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        /* General Styles - Webpage Background Image (BODY ONLY) */
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-image: url('https://i.imgur.com/NFIP6Ox.jpeg');
+            /* Background Image URL for BODY */
+            background-size: cover;
+            background-repeat: repeat;
+            background-attachment: fixed;
+            color: #333333;
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+            /* Prevent horizontal scrollbar */
+            /* Removed Flexbox from body - not needed if carousel and contact info are at the end */
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 20px auto; /* Center container with auto margins */
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.85);
+            /* Solid or semi-transparent background for container */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            /* Subtler shadow */
+            border-radius: 10px;
+            /* Slightly more rounded corners */
+        }
+
+        /* Header Styles -  Adapt for Background */
+        header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        header img {
+            max-width: 300px;
+            height: auto;
+            display: block;
+            margin: 15px auto;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+            color: #424242;
+            /* Darker heading for background */
+            text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #5a5a5a;
+            /* Darker paragraph text */
+            font-weight: bold;
+        }
+
+
+        /* Headings - Darker for contrast */
+        h1,
+        h2,
+        h3 {
+            color: #333;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        /* Links */
+        a {
+            color: #2962ff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Paragraphs and Text - Darker Text */
+        p {
+            margin-bottom: 15px;
+            color: #4a4a4a;
+        }
+
+        /* Lists */
+        ul,
+        ol {
+            margin-bottom: 18px;
+            margin-left: 35px;
+        }
+
+        ul {
+            list-style-type: disc;
+        }
+
+        ol {
+            list-style-type: decimal;
+        }
+
+        /* Blockquotes */
+        .quote {
+            font-style: italic;
+            border-left: 4px solid #bbbbbb;
+            padding-left: 12px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            color: #666666;
+        }
+
+        /* Section Images */
+        section img {
+            max-width: 80%;
+            height: auto;
+            display: block;
+            margin: 15px auto;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        }
+
+
+        /* Copyright */
+        .copyright {
+            margin-top: 35px;
+            text-align: center;
+            font-size: 0.85em;
+            color: #a0a0a0;
+        }
+
+        /* Leaf Animation Styles */
+        .leaf {
+            position: fixed;
+            top: -10px;
+            pointer-events: none;
+            z-index: -1;
+            width: 20px;
+            height: 20px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%238B4513"><path d="M19 7c-2.48 0-4.5 2.02-4.5 4.5S16.52 16 19 16s4.5-2.02 4.5-4.5S21.48 7 19 7zm0 7c-1.38 0-2.5-1.12-2.5-2.5S17.62 9 19 9s2.5 1.12 2.5 2.5S20.38 14 19 14zM5 7c-2.48 0-4.5 2.02-4.5 4.5S2.52 16 5 16s4.5-2.02 4.5-4.5S7.48 7 5 7zm0 7c-1.38 0-2.5-1.12-2.5-2.5S3.62 9 5 9s2.5 1.12 2.5 2.5S6.38 14 5 14zM12 7c-2.48 0-4.5 2.02-4.5 4.5S9.52 16 12 16s4.5-2.02 4.5-4.5S14.48 7 12 7zm0 7c-1.38 0-2.5-1.12-2.5-2.5S10.62 9 12 9s2.5 1.12 2.5 2.5S13.38 14 12 14z"/><path d="M12 1C5.92 1 1 12s4.92 11 11 11 11-4.92 11-11S18.08 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: fall linear infinite;
+        }
+
+        /* Keyframes for falling animation */
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Carousel Styles - Placed at the End Now - No Fixed Positioning */
+        aside.researcher-carousel {
+            /* position: fixed;  Removed fixed positioning */
+            position: relative; /* Set to relative so it flows in document order */
+            top: auto; /* Reset top and right */
+            right: auto;
+            width: 200px;
+            /* Wider carousel */
+            /* height: 300px;  Height will adjust with content now */
+            overflow: hidden;
+            /* Clip overflowing slides */
+            border-radius: 8px;
+            /* Less rounded corners */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Semi-transparent white background for carousel */
+            padding: 15px;
+            text-align: center;
+            z-index: 0;
+            /* Ensure carousel is above background */
+            margin: 30px auto; /* Center carousel horizontally and add margin */
+        }
+
+        .carousel-track {
+            display: flex;
+            /* Arrange slides horizontally */
+            animation: carousel-scroll 15s linear infinite;
+            /* Carousel animation */
+            width: 100%;
+            /* Track takes full width */
+        }
+
+        .carousel-slide {
+            width: 100%;
+            /* Each slide takes full width */
+            flex: 0 0 100%;
+            /* Prevent shrinking/growing */
+            padding: 10px 0;
+            /* Vertical padding for slides */
+        }
+
+        .carousel-slide img {
+            max-width: 100%;
+            /* Make images fill slide width */
+            height: auto;
+            border-radius: 0%;
+            /* Rectangular images - removed 50% for circles */
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            display: block;
+            /* Ensure image is block level for width to work properly*/
+            margin-left: auto;
+            /* Center image horizontally within slide */
+            margin-right: auto;
+        }
+
+        .carousel-slide p {
+            font-size: 0.95em;
+            /* Slightly larger name font */
+            color: #555;
+            margin: 0;
+        }
+
+
+        /* Keyframes for Carousel Animation */
+        @keyframes carousel-scroll {
+            0% {
+                transform: translateX(0%);
+            }
+
+            /* Example for 2 slides - adjust percentage for more slides */
+            50% {
+                transform: translateX(0%);
+                /* Pause at first slide (adjust as needed) */
+            }
+
+            /* For 2 slides, 100% will move track by -100%, showing the second slide */
+            100% {
+                transform: translateX(-100%);
+                /* Move to show second slide */
+            }
+
+            /* if more slides, calculate % based on number of slides.
+             For 3 slides, 33.3%, 66.6%, 100% etc */
+        }
+
+        /* Contact Information Styles - Moved to bottom */
+        .contact-info {
+            margin-top: 40px;
+            /* Increased top margin for spacing from content */
+            padding-top: 20px;
+            border-top: 2px solid #ccc;
+            font-size: 0.95em;
+            text-align: center;
+            color: #808080;
+            clear: both;
+            /* To ensure it sits below floated content if any in future*/
+            margin-bottom: 50px; /* Added margin at bottom for visual spacing */
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="container">
+        <header>
+            <h1>Thinking, Fast and Slow</h1>
+            <img src="https://m.media-amazon.com/images/I/41wI53OEpCL._SY445_SX342_.jpg"
+                alt="Thinking, Fast and Slow Book Cover">
+            <p><strong>Hook:</strong> Unlock the Hidden Drivers of Decision-Making</p>
+        </header>
+
+        <section id="introduction">
+            <h2>Introduction: The Architecture of Thought</h2>
+            <p>Daniel Kahneman's 'Thinking, Fast and Slow' is a seminal work that dissects the human mind's dual-process
+                system. It's not just a book; it's a guide to understanding the very architecture of our thoughts. This
+                exploration of System 1 (fast, intuitive) and System 2 (slow, deliberate) thinking offers invaluable
+                insights for anyone seeking to optimize decision-making in complex environments.</p>
+            <p>In the high-stakes world of business, finance, and leadership, decisions can make or break careers and
+                companies. Kahneman's work provides a framework for recognizing and mitigating cognitive biases, improving
+                strategic thinking, and ultimately, leading more effectively. It's essential reading for MBA students,
+                C-suite executives, decision scientists, and anyone aspiring to make better choices.</p>
+            <p><strong>Why I Chose This Book:</strong> I chose 'Thinking, Fast and Slow' because I wanted to gain a deeper
+                understanding of the human decision-making process and, more importantly, learn how to improve it. The
+                ability to make sound judgments is paramount, and Kahneman's work offered a rigorous and insightful
+                approach to achieving that.</p>
+        </section>
+
+        <section id="key-concepts">
+            <h2>Key Concepts: The Duality of Thought</h2>
+            <h3>System 1 and System 2 Thinking</h3>
+            <p>Kahneman introduces us to two distinct systems of thinking:</p>
+            <h4>System 1: The Automatic Pilot</h4>
+            <p>This system operates quickly and automatically, with little or no effort and no sense of voluntary control.
+                It's responsible for our intuitive reactions, gut feelings, and habitual behaviors. While efficient, System
+                1
+                is also prone to biases and errors.</p>
+            <p><em>Examples:</em> Driving on a familiar road, reading a person's emotions, answering simple math questions
+                like 2+2.</p>
+            <h4>System 2: The Conscious Thinker</h4>
+            <p>This system allocates attention to the effortful mental activities that demand it, including complex
+                computations, deliberate reasoning, and focused attention. System 2 is slower, more logical, and more
+                reliable, but it's also energy-intensive and easily fatigued.</p>
+            <p><strong>What I Learned:</strong> From this book, I learned that our minds are constantly navigating between
+                these two systems. Understanding when to rely on System 1 and when to engage System 2 is crucial for
+                making
+                optimal decisions. System 1 is great for quick, everyday decisions, but System 2 is essential for
+                complex,
+                strategic choices.</p>
+
+            <h3>Cognitive Biases and Heuristics</h3>
+            <p>The book meticulously details a range of cognitive biases and heuristics that can lead us astray:</p>
+            <h4>Availability Heuristic</h4>
+            <p>We judge the likelihood of an event based on how easily examples come to mind.</p>
+            <p><em>Example:</em> Overestimating the risk of a shark attack after seeing news reports about one.</p>
+            <h4>Anchoring Effect</h4>
+            <p>Our judgments are influenced by the first piece of information we receive (the anchor).</p>
+            <p><em>Example:</em> Negotiating a salary based on the initial salary offered.</p>
+            <h4>Loss Aversion</h4>
+            <p>We feel the pain of a loss more strongly than the pleasure of an equivalent gain.</p>
+            <p><em>Example:</em> Being more upset about losing $100 than being happy about gaining $100.</p>
+            <p>These biases and heuristics, while often helpful, can lead to systematic errors in judgment. Recognizing
+                them is the first step towards mitigating their impact.</p>
+        </section>
+
+        <section id="impact">
+            <h2>Impact and Perspective Shift</h2>
+            <p><strong>How It Changed My Perspective:</strong> Reading 'Thinking, Fast and Slow' has fundamentally changed my
+                perspective on decision-making. I now have a much clearer understanding of when to use each kind of
+                decision-making approach for different types of problems.</p>
+            <p>I've become more aware of my own biases and the biases of others. This awareness has made me more cautious
+                about relying solely on intuition and more inclined to engage in deliberate analysis, especially for
+                critical decisions.</p>
+            <p><strong>Application to Business and Leadership:</strong> For MBA students, C-suite executives, and
+                decision scientists, this book provides a powerful lens for analyzing strategic decisions, evaluating
+                risk, and understanding consumer behavior. It highlights the importance of fostering a culture of critical
+                thinking and challenging assumptions.</p>
+        </section>
+
+        <section id="interesting-insight">
+            <h2>Most Interesting and Impactful Insight</h2>
+            <p>One of the most interesting and impactful insights from the book was Kahneman's exploration of the
+                illusion of skill in financial markets.</p>
+            <p>He points out how fund managers often believe they can consistently outperform the market through their
+                expertise and analysis. However, the evidence strongly suggests that market outcomes are largely driven
+                by chance, and that active management rarely beats passive investment strategies in the long run.</p>
+            <p>This insight challenges the notion of expertise in highly unpredictable domains and underscores the
+                limitations of human judgment in complex systems. It has significant implications for investment
+                strategies and risk management.</p>
+        </section>
+
+        <section id="memorable-quotes">
+            <h2>Memorable Quotes (Widely Cited by Business Leaders)</h2>
+            <div class="quote">
+                <p>"No one ever made a decision because of a number. They need a story." - Daniel Kahneman</p>
+            </div>
+            <div class="quote">
+                <p>"The idea of loss aversion is certainly one of the most significant contributions of behavioral
+                    economics to the field." - Richard Thaler (Often cited by CEOs when discussing risk management)</p>
+            </div>
+            <div class="quote">
+                <p>"Intelligence is not only the ability to reason; it is also the ability to find relevant material
+                    in memory and to deploy attention when needed." - Daniel Kahneman (Relevant for strategic thinking
+                    and information processing)</p>
+            </div>
+        </section>
+
+        <section id="interaction">
+            <h2>Interaction</h2>
+            <h3>Discussion Prompts for Leaders:</h3>
+            <ul>
+                <li>How can your organization create processes that encourage System 2 thinking for critical decisions?
+                </li>
+                <li>What cognitive biases are most prevalent in your industry, and how can they be mitigated?</li>
+                <li>How can leaders promote a culture that values both intuition and analysis?</li>
+            </ul>
+        </section>
+
+        <section id="recommendations">
+            <h2>Recommendations/Further Reading</h2>
+            <h3>Who Should Read This Book:</h3>
+            <p>'Thinking, Fast and Slow' is essential reading for anyone seeking to improve their decision-making
+                skills.
+                It's particularly valuable for:</p>
+            <ul>
+                <li>MBA students: To develop a strong foundation in behavioral economics and decision theory.</li>
+                <li>C-suite executives: To enhance strategic thinking, mitigate biases, and lead more effectively.</li>
+                <li>Decision scientists: To deepen their understanding of cognitive processes and design better decision
+                    support systems.</li>
+                <li>Anyone interested in psychology, behavioral economics, and the science of decision-making.</li>
+            </ul>
+            <h3>Similar Books/Resources:</h3>
+            <ul>
+                <li>"Nudge" by Richard Thaler and Cass Sunstein</li>
+                <li>"Predictably Irrational" by Dan Ariely</li>
+                <li>"The Undoing Project" by Michael Lewis (also about Kahneman)</li>
+            </ul>
+        </section>
+
+        <section id="visual-summary">
+            <h2>Visual Summary</h2>
+            <img src="https://i.imgur.com/BuA6meq.jpeg" alt="Visual Summary of Thinking, Fast and Slow">
+        </section>
+
+        <aside class="researcher-carousel">
+            <div class="carousel-track">
+                <div class="carousel-slide">
+                    <img src="https://i.imgur.com/HL0Tydr.jpeg">
+                    <p>Daniel Kahneman</p>
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://i.imgur.com/oGxgofy.jpeg">
+                    <p>Amos Tversky</p>
+                </div>
+            </div>
+        </aside>
+
+        <div class="contact-info">
+            <p><strong>Contact Information:</strong></p>
+            <p>Amanjeet Singh</p>
+            <p>Phone No.: 7853592475</p>
+            <p>Address: F31, SV-19, Road10, ISB, Hyderabad-500111</p>
+            <p>Email: <a href="mailto:amanjeet.singh@isb.edu">amanjeet.singh@isb.edu</a></p>
+        </div>
+    </div>
+
+    <footer class="copyright">
+        <p>&copy; Amanjeet Singh 2024</p>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const leafCount = 50; // Number of leaves
+            const container = document.querySelector('.container'); // Get container for relative positioning
+
+            for (let i = 0; i < leafCount; i++) {
+                createLeaf(container);
+            }
+
+            function createLeaf(container) {
+                const leaf = document.createElement('div');
+                leaf.className = 'leaf';
+                container.appendChild(leaf); // Append leaves to the container
+
+                // Randomize properties for each leaf
+                const startPosition = Math.random() * 100; // Random horizontal start
+                const animationDuration = 10 + Math.random() * 15; // 10-25 seconds
+                const animationDelay = Math.random() * 5; // Up to 5 seconds delay
+                const leafSize = 10 + Math.random() * 15; // 10-25px size
+
+                leaf.style.left = `${startPosition}vw`;
+                leaf.style.width = `${leafSize}px`;
+                leaf.style.height = `${leafSize}px`;
+                leaf.style.animationDuration = `${animationDuration}s`;
+                leaf.style.animationDelay = `${animationDelay}s`;
+                leaf.style.opacity = Math.random() + 0.5; // Random opacity
+
+                // Remove leaf after animation completes to optimize performance (optional)
+                leaf.addEventListener('animationiteration', () => {
+                    leaf.remove();
+                    createLeaf(container); // Re-create leaf at top after it falls
+                });
+            }
+        });
+
+        // JavaScript to start/pause carousel (CSS animation is already running)
+        const carouselTrack = document.querySelector('.carousel-track');
+        let isCarouselPaused = false; // Initially carousel is running
+
+        // Optional: Add pause on hover (example)
+        const carouselContainer = document.querySelector('.researcher-carousel');
+        carouselContainer.addEventListener('mouseenter', () => {
+            isCarouselPaused = true;
+            carouselTrack.style.animationPlayState = 'paused';
+        });
+
+        carouselContainer.addEventListener('mouseleave', () => {
+            isCarouselPaused = false;
+            carouselTrack.style.animationPlayState = 'running';
+        });
+    </script>
+</body>
+
+</html>
